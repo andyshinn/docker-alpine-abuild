@@ -17,6 +17,14 @@ Then build your Docker image for the package with `docker build -t package .` an
 
 You will have a `packages` folder locally with your built Alpine Linux packages.
 
+## Environment
+
+There are a number of environment variables you can change at package build time:
+
+* `PACKAGER_PRIVKEY`: defaults to `/package/abuild.rsa`
+* `REPODEST`: defaults to `/packages`
+* `PACKAGER`: defaults to `Glider Labs <team@gliderlabs.com>`
+
 ## Example
 
 Check out https://github.com/andyshinn/alpine-pkg-hub for an example of this process.
