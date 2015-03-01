@@ -10,9 +10,9 @@ ENTRYPOINT ["abuild", "-r"]
 
 WORKDIR /package
 
-ENV PACKAGER_PRIVKEY="/package/abuild.rsa" \
-  REPODEST="/packages" \
-  PACKAGER="Glider Labs <team@gliderlabs.com>" \
+ENV PACKAGER_PRIVKEY /package/abuild.rsa
+ENV REPODEST /packages
+ENV PACKAGER Glider Labs <team@gliderlabs.com>
 
 ONBUILD RUN abuild-apk update
 ONBUILD COPY . /package
