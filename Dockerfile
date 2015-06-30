@@ -1,8 +1,9 @@
-FROM gliderlabs/alpine:3.1
+FROM alpine:3.2
 
-RUN apk-install alpine-sdk \
+RUN apk -U add alpine-sdk \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/sh -D builder \
-  && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+  && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
+  && rm -rf /var/cache/apk/*
 
 USER builder
 
