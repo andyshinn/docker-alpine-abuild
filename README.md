@@ -4,26 +4,24 @@ This is a Docker image for building Alpine Linux packages.
 
 ## Usage
 
-In your Alpine Linux package source folder (the folder with your APKBUILD) create a `Dockerfile`. You need to specify the `FROM` image and `PACKAGER_PRIVKEY` environment variable. This is the location of your private key file. The `ONBUILD` triggers will copy `*.rsa` to `/package` and `*.rsa.pub` to `/etc/apk/keys`.
-
-Here is an example `Dockerfile`:
+The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/abuild.rsa` to your packager private key location):
 
 ```
-FROM andyshinn/alpine-abuild
-ENV PACKAGER_PRIVKEY /package/andys@andyshinn.as-54f23052.rsa
+docker run -e RSA_PRIVATE_KEY="$(cat ~/.abuild/abuild.rsa)" -v $(pwd):/home/builder/package -v $(pwd)/packages:/home/builder/packages
 ```
 
-Then build your Docker image for the package with `docker build -t package .` and run it with `docker run --name package package` to build the Alpine Linux package. You can copy the `apk` file out of the container after it is build with `docker cp package:/packages .`.
+This would build the package at your current working directory, and place the resulting packages in `packages` at your current working directory.
 
-You will have a `packages` folder locally with your built Alpine Linux packages.
+You can also run the builder anywhere. You just need to mount your package source and build directories to `/home/builder/package` and `/home/builder/packages`, respectively.
 
 ## Environment
 
 There are a number of environment variables you can change at package build time:
 
-* `PACKAGER_PRIVKEY`: defaults to `/package/abuild.rsa`
-* `REPODEST`: defaults to `/packages`
-* `PACKAGER`: defaults to `Glider Labs <team@gliderlabs.com>`
+* `RSA_PRIVATE_KEY`: required. This is the contents of your RSA private key.
+* `PACKAGER_PRIVKEY`: defaults to `/package/abuild.rsa`. This is generally used if you are bind mounting your private key instead of passing it in with `RSA_PRIVATE_KEY`.
+* `REPODEST`: defaults to `/packages`. If you want to override the destination of the build packages.
+* `PACKAGER`: defaults to `Glider Labs <team@gliderlabs.com>`. This is the name of the package used in package metadata.
 
 ## Keys
 
@@ -58,9 +56,10 @@ writing RSA key
 
 This output contains the path to your public and private keys. Copy the keys out of the container:
 
-```
-docker cp keys:/home/builder/.abuild/team@gliderlabs.com-5592f9b1.rsa .
-docker cp keys:/home/builder/.abuild/team@gliderlabs.com-5592f9b1.rsa.pub .
+```a
+mkdir ~/.abuild
+docker cp keys:/home/builder/.abuild/team@gliderlabs.com-5592f9b1.rsa ~/.abuild/
+docker cp keys:/home/builder/.abuild/team@gliderlabs.com-5592f9b1.rsa.pub ~/.abuild/
 ```
 
 Put your key files in a same place and destroy this container:

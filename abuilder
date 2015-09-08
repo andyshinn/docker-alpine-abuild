@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+set -e
+
+main() {
+  [ -z "$RSA_PRIVATE_KEY" ] && echo "You need to set RSA_PRIVATE_KEY environent variable" && exit 1
+  echo "$RSA_PRIVATE_KEY" > /home/builder/abuild.rsa
+  mkdir -p /home/builder/packages
+  abuild-apk update
+  abuild "$@"
+}
+
+main "$@"
