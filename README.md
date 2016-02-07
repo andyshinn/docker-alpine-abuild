@@ -7,7 +7,7 @@ This is a Docker image for building Alpine Linux packages.
 The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/abuild.rsa` to your packager private key location):
 
 ```
-docker run -e RSA_PRIVATE_KEY="$(cat ~/.abuild/abuild.rsa)" -v $(pwd):/home/builder/package -v $(pwd)/packages:/home/builder/packages
+docker run -e RSA_PRIVATE_KEY="$(cat ~/.abuild/abuild.rsa)" -v $(pwd):/home/builder/package -v $(pwd)/packages:/home/builder/packages andyshinn/alpine-abuild
 ```
 
 This would build the package at your current working directory, and place the resulting packages in `packages` at your current working directory.
@@ -70,4 +70,4 @@ docker rm -f keys
 
 ## Example
 
-Check out https://github.com/andyshinn/alpine-pkg-hub for an example of this process.
+Check out https://github.com/andyshinn/alpine-pkg-glibc for an example package that gets built using this.
