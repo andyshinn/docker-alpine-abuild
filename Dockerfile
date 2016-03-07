@@ -1,6 +1,5 @@
 FROM gliderlabs/alpine:3.3
-RUN apk update \
-  && apk --no-cache add alpine-sdk coreutils \
+RUN apk --no-cache add alpine-sdk coreutils \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 COPY /abuilder /bin/
