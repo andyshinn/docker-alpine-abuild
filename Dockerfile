@@ -7,3 +7,4 @@ USER builder
 ENTRYPOINT ["abuilder", "-r"]
 WORKDIR /home/builder/package
 ENV PACKAGER_PRIVKEY /home/builder/abuild.rsa
+ENV RSA_PRIVATE_KEY_NAME ssh.rsa

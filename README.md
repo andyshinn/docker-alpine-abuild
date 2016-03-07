@@ -19,10 +19,10 @@ You can also run the builder anywhere. You just need to mount your package sourc
 There are a number of environment variables you can change at package build time:
 
 * `RSA_PRIVATE_KEY`: This is the contents of your RSA private key. This is optional. You should use `PACKAGER_PRIVKEY` and mount your private key if not using `PACKAGER_PRIVKEY`.
-* `RSA_PRIVATE_KEY_NAME`: This is the name we will set the private key file as when using `RSA_PRIVATE_KEY`. The file will be written out to `/home/builder/$RSA_PRIVATE_KEY_NAME`.
+* `RSA_PRIVATE_KEY_NAME`: Defaults to `ssh.rsa`. This is the name we will set the private key file as when using `RSA_PRIVATE_KEY`. The file will be written out to `/home/builder/$RSA_PRIVATE_KEY_NAME`.
 * `PACKAGER_PRIVKEY`: Defaults to `/package/abuild.rsa`. This is generally used if you are bind mounting your private key instead of passing it in with `RSA_PRIVATE_KEY`.
-* `REPODEST`: defaults to `/packages`. If you want to override the destination of the build packages.
-* `PACKAGER`: defaults to `Glider Labs <team@gliderlabs.com>`. This is the name of the package used in package metadata.
+* `REPODEST`: Defaults to `/packages`. If you want to override the destination of the build packages.
+* `PACKAGER`: Defaults to `Glider Labs <team@gliderlabs.com>`. This is the name of the package used in package metadata.
 
 ## Keys
 
