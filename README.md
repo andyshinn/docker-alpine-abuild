@@ -4,24 +4,30 @@ This is a Docker image for building Alpine Linux packages.
 
 ## Usage
 
-The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/abuild.rsa` to your packager private key location):
+The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/mykey.rsa` and `~/.abuild/mykey.rsa.pub` to your packager private and public key locations):
 
 ```
-docker run -e RSA_PRIVATE_KEY="$(cat ~/.abuild/abuild.rsa)" -v $(pwd):/home/builder/package -v $(pwd)/packages:/home/builder/packages andyshinn/alpine-abuild
+docker run \
+	-e RSA_PRIVATE_KEY="$(cat ~/.abuild/mykey.rsa)" \
+	-e RSA_PRIVATE_KEY_NAME="mykey.rsa" \
+	-v "$PWD:/home/builder/package" \
+	-v "$HOME/.abuild/packages:/packages" \
+	-v "$HOME/.abuild/mykey.rsa.pub:/etc/apk/keys/mykey.rsa.pub" \
+	andyshinn/alpine-abuild
 ```
 
-This would build the package at your current working directory, and place the resulting packages in `packages` at your current working directory.
+This would build the package at your current working directory, and place the resulting packages in `~/.abuild/packages/builder/x86_64`. Subsequent builds of packages will update the `~/.abuild/packages/builder/x86_64/APKINDEX.tar.gz` file.
 
-You can also run the builder anywhere. You just need to mount your package source and build directories to `/home/builder/package` and `/home/builder/packages`, respectively.
+You can also run the builder anywhere. You just need to mount your package source and build directories to `/home/builder/package` and `/packages`, respectively.
 
 ## Environment
 
 There are a number of environment variables you can change at package build time:
 
-* `RSA_PRIVATE_KEY`: This is the contents of your RSA private key. This is optional. You should use `PACKAGER_PRIVKEY` and mount your private key if not using `PACKAGER_PRIVKEY`.
+* `RSA_PRIVATE_KEY`: This is the contents of your RSA private key. This is optional. You should use `PACKAGER_PRIVKEY` and mount your private key if not using `RSA_PRIVATE_KEY`.
 * `RSA_PRIVATE_KEY_NAME`: Defaults to `ssh.rsa`. This is the name we will set the private key file as when using `RSA_PRIVATE_KEY`. The file will be written out to `/home/builder/$RSA_PRIVATE_KEY_NAME`.
-* `PACKAGER_PRIVKEY`: Defaults to `/package/abuild.rsa`. This is generally used if you are bind mounting your private key instead of passing it in with `RSA_PRIVATE_KEY`.
-* `REPODEST`: Defaults to `/packages`. If you want to override the destination of the build packages.
+* `PACKAGER_PRIVKEY`: Defaults to `/home/builder/.abuild/$RSA_PRIVATE_KEY_NAME`. This is generally used if you are bind mounting your private key instead of passing it in with `RSA_PRIVATE_KEY`.
+* `REPODEST`: Defaults to `/packages`. If you want to override the destination of the build packages. You must also be sure the `builder` user has access to write to the destination. The `abuilder` entry point will attempt to `mkdir -p` this location.
 * `PACKAGER`: Defaults to `Glider Labs <team@gliderlabs.com>`. This is the name of the package used in package metadata.
 
 ## Keys
