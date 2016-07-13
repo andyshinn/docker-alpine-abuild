@@ -4,6 +4,11 @@ This is a Docker image for building Alpine Linux packages.
 
 ## Usage
 
+There are currently two tags to choose from:
+
+* `andyshinn/alpine-abuild:v1`: based on Alpine 3.3
+* `andyshinn/alpine-abuild:v2`: based on Alpine 3.4
+
 The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/mykey.rsa` and `~/.abuild/mykey.rsa.pub` to your packager private and public key locations):
 
 ```
@@ -13,7 +18,7 @@ docker run \
 	-v "$PWD:/home/builder/package" \
 	-v "$HOME/.abuild/packages:/packages" \
 	-v "$HOME/.abuild/mykey.rsa.pub:/etc/apk/keys/mykey.rsa.pub" \
-	andyshinn/alpine-abuild
+	andyshinn/alpine-abuild:v2
 ```
 
 This would build the package at your current working directory, and place the resulting packages in `~/.abuild/packages/builder/x86_64`. Subsequent builds of packages will update the `~/.abuild/packages/builder/x86_64/APKINDEX.tar.gz` file.
@@ -35,7 +40,7 @@ There are a number of environment variables you can change at package build time
 You can use this image to generate keys if you don't already have them. Generate them in a container using the following command (replacing `Glider Labs <team@gliderlabs.com>` with your own name and email):
 
 ```
-docker run --name keys --entrypoint abuild-keygen -e PACKAGER="Glider Labs <team@gliderlabs.com>" andyshinn/alpine-abuild -n
+docker run --name keys --entrypoint abuild-keygen -e PACKAGER="Glider Labs <team@gliderlabs.com>" andyshinn/alpine-abuild:v2 -n
 ```
 
 You'll see some output like the following:
@@ -74,7 +79,3 @@ Put your key files in a same place and destroy this container:
 ```
 docker rm -f keys
 ```
-
-## Example
-
-Check out https://github.com/andyshinn/alpine-pkg-glibc for an example package that gets built using this.
