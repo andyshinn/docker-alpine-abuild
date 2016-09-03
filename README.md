@@ -4,10 +4,11 @@ This is a Docker image for building Alpine Linux packages.
 
 ## Usage
 
-There are currently two tags to choose from:
+There are currently three tags to choose from:
 
 * `andyshinn/alpine-abuild:v1`: based on Alpine 3.3
 * `andyshinn/alpine-abuild:v2`: based on Alpine 3.4
+* `andyshinn/alpine-abuild:edge`: based on Alpine edge (includes testing repository as well)
 
 The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/mykey.rsa` and `~/.abuild/mykey.rsa.pub` to your packager private and public key locations):
 
