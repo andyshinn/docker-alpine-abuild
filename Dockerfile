@@ -11,3 +11,4 @@ WORKDIR /home/builder/package
 ENV RSA_PRIVATE_KEY_NAME ssh.rsa
 ENV PACKAGER_PRIVKEY /home/builder/${RSA_PRIVATE_KEY_NAME}
 ENV REPODEST /packages
+VOLUME ["/home/builder/package"]
