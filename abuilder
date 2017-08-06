@@ -9,6 +9,13 @@ main() {
     echo -e "$RSA_PRIVATE_KEY" > "/home/builder/.abuild/$RSA_PRIVATE_KEY_NAME"
     export PACKAGER_PRIVKEY="/home/builder/.abuild/$RSA_PRIVATE_KEY_NAME"
   }
+
+  PACKAGER_PUBKEY="/etc/apk/keys/$RSA_PRIVATE_KEY_NAME.pub"
+  [ ! -f "$PACKAGER_PUBKEY" ] && {
+    openssl rsa -in "$PACKAGER_PRIVKEY" -pubout -out "/tmp/rsa.pub"
+    sudo mv /tmp/rsa.pub "$PACKAGER_PUBKEY"
+  }
+
   sudo chown -R builder:abuild /home/builder/package
   sudo chown -R builder:abuild $REPODEST
 
