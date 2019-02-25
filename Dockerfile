@@ -1,4 +1,4 @@
-FROM alpine:3.8
+FROM alpine:3.9
 RUN apk --no-cache add alpine-sdk coreutils cmake \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
