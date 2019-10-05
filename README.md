@@ -14,6 +14,7 @@ We tag each release with a simple `v#` version scheme. Here are the tags to choo
 * `andyshinn/alpine-abuild:v6`: based on Alpine 3.7
 * `andyshinn/alpine-abuild:v7`: based on Alpine 3.8
 * `andyshinn/alpine-abuild:v8`: based on Alpine 3.9
+* `andyshinn/alpine-abuild:v9`: based on Alpine 3.10
 * `andyshinn/alpine-abuild:edge`: based on Alpine edge (includes testing repository as well)
 
 The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/mykey.rsa` and `~/.abuild/mykey.rsa.pub` to your packager private and public key locations):
