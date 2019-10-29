@@ -87,3 +87,7 @@ Put your key files in a same place and destroy this container:
 ```
 docker rm -f keys
 ```
+
+## APK Cache
+
+The builder has configured APK to use `/var/cache/apk` as its cache directory. This directory can be mounted as a volume to prevent the repeated download of dependencies when building packages.
