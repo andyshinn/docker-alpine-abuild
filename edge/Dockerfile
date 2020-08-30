@@ -1,6 +1,6 @@
 FROM alpine:edge
 RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/testing >> /etc/apk/repositories \
-  && apk --no-cache add alpine-sdk coreutils \
+  && apk --no-cache add alpine-sdk coreutils sudo \
   && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
   && mkdir /packages \
