@@ -10,11 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+
       - name: Build Docker Image (amd64)
         run: docker build -f Dockerfile.multiarch --build-arg ARCH=amd64 .
 
-      - name: Build Docker Image (armhf)
-        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armhf .
+#      - name: Build Docker Image (armhf)
+#        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armhf .
 
       - name: Build Docker Image (armv7)
         run: docker build -f Dockerfile.multiarch --build-arg ARCH=armv7 .
