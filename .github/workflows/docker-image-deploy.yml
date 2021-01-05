@@ -1,0 +1,57 @@
+name: Docker Image Build and Deploy
+on:
+  push:
+    tags: '**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [ amd64, armhf, armv7, aarch64 ]
+        include:
+          - arch: amd64
+            platform: linux/amd64
+
+          - arch: armhf
+            platform: linux/arm/v6
+
+          - arch: armv7
+            platform: linux/arm/v7
+
+          - arch: aarch64
+            platform: linux/arm64
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+      
+      - uses: docker/setup-buildx-action@v1
+
+      - uses: crazy-max/ghaction-docker-meta@v1
+        id: docker_meta
+        with:
+          images: asymworks/alpine-abuild-${{ matrix.arch }}
+          tag-semver: |
+            $\{{ matrix.arch }}-{{version}}
+            $\{{ matrix.arch }}-{{major}}.{{minor}}
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push Docker Image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.multiarch
+          push: true
+          build-args: |
+            ARCH=${{ matrix.arch }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
