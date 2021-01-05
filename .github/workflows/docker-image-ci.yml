@@ -11,11 +11,15 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - uses: docker/setup-qemu-action@master
+        with:
+          platforms: all
+
       - name: Build Docker Image (amd64)
         run: docker build -f Dockerfile.multiarch --build-arg ARCH=amd64 .
 
-#      - name: Build Docker Image (armhf)
-#        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armhf .
+      - name: Build Docker Image (armhf)
+        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armhf .
 
       - name: Build Docker Image (armv7)
         run: docker build -f Dockerfile.multiarch --build-arg ARCH=armv7 .
