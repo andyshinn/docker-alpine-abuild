@@ -11,13 +11,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker Image (amd64)
-        run: docker build -f Dockerfile.multiarch --build-args ARCH=amd64 .
+        run: docker build -f Dockerfile.multiarch --build-arg ARCH=amd64 .
 
       - name: Build Docker Image (armhf)
-        run: docker build -f Dockerfile.multiarch --build-args ARCH=armhf .
+        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armhf .
 
       - name: Build Docker Image (armv7)
-        run: docker build -f Dockerfile.multiarch --build-args ARCH=armv7 .
+        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armv7 .
 
       - name: Build Docker Image (aarch64)
-        run: docker build -f Dockerfile.multiarch --build-args ARCH=aarch64 .
+        run: docker build -f Dockerfile.multiarch --build-arg ARCH=aarch64 .
