@@ -1,4 +1,4 @@
-name: Docker Image Build and Deploy
+name: Docker Image CI
 on:
   push:
     branches: [ master ]
@@ -8,6 +8,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: [ amd64, armhf, armv7, aarch64 ]
+    
     steps:
       - uses: actions/checkout@v2
 
@@ -15,14 +19,8 @@ jobs:
         with:
           platforms: all
 
-      - name: Build Docker Image (amd64)
-        run: docker build -f Dockerfile.multiarch --build-arg ARCH=amd64 .
-
-      - name: Build Docker Image (armhf)
-        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armhf .
-
-      - name: Build Docker Image (armv7)
-        run: docker build -f Dockerfile.multiarch --build-arg ARCH=armv7 .
-
-      - name: Build Docker Image (aarch64)
-        run: docker build -f Dockerfile.multiarch --build-arg ARCH=aarch64 .
+      - name: Build Docker Image (${{ matrix.arch }})
+        run: |
+          docker build . \
+            -f Dockerfile.multiarch \
+            --build-arg ARCH=${{ matrix.arch }}
