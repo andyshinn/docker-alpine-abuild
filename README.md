@@ -11,10 +11,10 @@ docker run --rm \
 	-e RSA_PRIVATE_KEY="$(cat ~/.abuild/packages@asymworks.com-5ff0a833.rsa)" 
 	-v "$PWD:/home/builder/package" 
 	-v "$HOME/.abuild/packages:/packages" 
-	asymworks/alpine-abuild:armv7-v3.12
+	asymworks/alpine-abuild-armv7:3.12
 ```
 
-This would build the package at your current working directory, and place the resulting packages in `~/.abuild/packages/builder/armv7`. Subsequent builds of packages will update the `~/.abuild/packages/builder/armv7/APKINDEX.tar.gz` file. The `armv7` architecture tag can be replaced with any of the supported [docker tags](https://hub.docker.com/r/asymworks/alpine-abuild/tags).
+This would build the package at your current working directory, and place the resulting packages in `~/.abuild/packages/builder/armv7`. Subsequent builds of packages will update the `~/.abuild/packages/builder/armv7/APKINDEX.tar.gz` file. The `armv7` portion of the image name can be replaced with `armhf` or `aarch64` to support other Raspberry Pi flavors.
 
 ## Environment
 
