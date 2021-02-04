@@ -1,3 +1,7 @@
+# Up For Adoption
+
+This repository is up for adoption. I am looking for a maintainer I can transfer the project to. Please see #25 for more information.
+
 # Alpine Package Builder
 
 This is a Docker image for building Alpine Linux packages.
