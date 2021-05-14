@@ -1,5 +1,8 @@
 ARG ARCH=
-FROM multiarch/alpine:${ARCH}-v3.12
+ARG DIST=v3.12
+FROM multiarch/alpine:${ARCH}-${DIST}
+
+ARG DIST=v3.12
 
 ENV RSA_PRIVATE_KEY_NAME packages@asymworks.com-5ff0a833.rsa
 ENV PACKAGER_PRIVKEY /home/builder/${RSA_PRIVATE_KEY_NAME}
@@ -15,9 +18,11 @@ RUN apk --no-cache add alpine-sdk coreutils cmake sudo \
   && wget -qO /etc/apk/keys/${RSA_PRIVATE_KEY_NAME}.pub \
     https://pkgs.asymworks.net/${RSA_PRIVATE_KEY_NAME}.pub
 
+RUN echo "https://pkgs.asymworks.net/alpine/${DIST}/main" >> /etc/apk/repositories
+
 COPY /abuilder /bin/
 USER builder
 ENTRYPOINT ["abuilder", "-r"]
-WORKDIR /home/builder/package
+WORKDIR /home/builder/main/package
 
 VOLUME ["/home/builder/package"]
