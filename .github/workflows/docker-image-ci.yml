@@ -10,8 +10,9 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        dist: [ v3.12, v3.13, v3.14 ]
         arch: [ amd64, armhf, armv7, aarch64 ]
-    
+
     steps:
       - uses: actions/checkout@v2
 
@@ -22,5 +23,5 @@ jobs:
       - name: Build Docker Image (${{ matrix.arch }})
         run: |
           docker build . \
-            -f Dockerfile.multiarch \
-            --build-arg ARCH=${{ matrix.arch }}
+            --build-arg ARCH=${{ matrix.arch }} \
+            --build-arg DIST=${{ matrix.dist }}
