@@ -52,6 +52,5 @@ jobs:
           build-args: |
             ARCH=${{ matrix.arch }}
             DIST=${{ matrix.dist }}
-          tags:
-            - ${{ matrix.dist }}
+          tags: asymworks/alpine-abuild-${{matrix.arch}}:${{ matrix.dist }}
           labels: ${{ steps.docker_meta.outputs.labels }}
