@@ -18,8 +18,6 @@ RUN apk --no-cache add alpine-sdk coreutils cmake sudo \
   && wget -qO /etc/apk/keys/${RSA_PRIVATE_KEY_NAME}.pub \
     https://pkgs.asymworks.net/${RSA_PRIVATE_KEY_NAME}.pub
 
-RUN echo "https://pkgs.asymworks.net/alpine/${DIST}/main" >> /etc/apk/repositories
-
 COPY /abuilder /bin/
 USER builder
 ENTRYPOINT ["abuilder", "-r"]
