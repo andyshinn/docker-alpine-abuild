@@ -23,6 +23,7 @@ We tag each release with a simple `v#` version scheme. Here are the tags to choo
 * `andyshinn/alpine-abuild:v11`: based on Alpine 3.12
 * `andyshinn/alpine-abuild:v12`: based on Alpine 3.13
 * `andyshinn/alpine-abuild:v13`: based on Alpine 3.14
+* `andyshinn/alpine-abuild:v14`: based on Alpine 3.15
 * `andyshinn/alpine-abuild:edge`: based on Alpine edge (includes testing repository as well)
 
 The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/mykey.rsa` and `~/.abuild/mykey.rsa.pub` to your packager private and public key locations):
