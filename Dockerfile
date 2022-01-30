@@ -1,6 +1,6 @@
 ARG ARCH=
 ARG DIST=v3.15
-FROM multiarch/alpine:${ARCH}-${DIST}
+FROM asymworks/multiarch-alpine:${ARCH}-${DIST}
 
 ARG DIST=v3.15
 
