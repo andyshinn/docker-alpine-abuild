@@ -1,8 +1,8 @@
 ARG ARCH=
-ARG DIST=v3.14
+ARG DIST=v3.15
 FROM multiarch/alpine:${ARCH}-${DIST}
 
-ARG DIST=v3.14
+ARG DIST=v3.15
 
 ENV RSA_PRIVATE_KEY_NAME packages@asymworks.com-5ff0a833.rsa
 ENV PACKAGER_PRIVKEY /home/builder/${RSA_PRIVATE_KEY_NAME}

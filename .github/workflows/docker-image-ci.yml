@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        dist: [ v3.12, v3.13, v3.14, edge ]
+        dist: [ v3.13, v3.14, v3.15, edge ]
         arch: [ x86_64, armhf, armv7, aarch64 ]
 
     steps:
