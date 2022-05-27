@@ -36,7 +36,7 @@ docker run \
 	-v "$PWD:/home/builder/package" \
 	-v "$HOME/.abuild/packages:/packages" \
 	-v "$HOME/.abuild/mykey.rsa.pub:/etc/apk/keys/mykey.rsa.pub" \
-	andyshinn/alpine-abuild:edge
+	andyshinn/alpine-abuild:v15
 ```
 
 This would build the package at your current working directory, and place the resulting packages in `~/.abuild/packages/builder/x86_64`. Subsequent builds of packages will update the `~/.abuild/packages/builder/x86_64/APKINDEX.tar.gz` file.
