@@ -25,6 +25,7 @@ We tag each release with a simple `v#` version scheme. Here are the tags to choo
 * `andyshinn/alpine-abuild:v13`: based on Alpine 3.14
 * `andyshinn/alpine-abuild:v14`: based on Alpine 3.15
 * `andyshinn/alpine-abuild:v15`: based on Alpine 3.16
+* `andyshinn/alpine-abuild:v16`: based on Alpine 3.17
 * `andyshinn/alpine-abuild:edge`: based on Alpine edge (includes testing repository as well)
 
 The builder is typically run from your Alpine Linux package source directory (changing `~/.abuild/mykey.rsa` and `~/.abuild/mykey.rsa.pub` to your packager private and public key locations):
@@ -36,7 +37,7 @@ docker run \
 	-v "$PWD:/home/builder/package" \
 	-v "$HOME/.abuild/packages:/packages" \
 	-v "$HOME/.abuild/mykey.rsa.pub:/etc/apk/keys/mykey.rsa.pub" \
-	andyshinn/alpine-abuild:v15
+	andyshinn/alpine-abuild:v16
 ```
 
 This would build the package at your current working directory, and place the resulting packages in `~/.abuild/packages/builder/x86_64`. Subsequent builds of packages will update the `~/.abuild/packages/builder/x86_64/APKINDEX.tar.gz` file.
