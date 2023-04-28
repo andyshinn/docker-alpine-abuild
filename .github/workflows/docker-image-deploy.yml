@@ -54,3 +54,4 @@ jobs:
             DIST=${{ matrix.dist }}
           tags: asymworks/alpine-abuild-${{matrix.arch}}:${{ matrix.dist }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+          platforms: ${{ matrix.platform }}
