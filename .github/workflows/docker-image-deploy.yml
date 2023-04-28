@@ -21,7 +21,7 @@ jobs:
             platform: linux/arm/v7
 
           - arch: aarch64
-            platform: linux/arm64/v8
+            platform: linux/arm64,linux/arm64/v7,linux/arm64/v8
 
     steps:
       - uses: actions/checkout@v2
