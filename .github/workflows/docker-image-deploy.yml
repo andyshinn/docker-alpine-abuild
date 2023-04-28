@@ -21,7 +21,7 @@ jobs:
             platform: linux/arm/v7
 
           - arch: aarch64
-            platform: linux/arm64,linux/arm64/v7,linux/arm64/v8
+            platform: linux/arm64
 
     steps:
       - uses: actions/checkout@v2
@@ -54,4 +54,3 @@ jobs:
             DIST=${{ matrix.dist }}
           tags: asymworks/alpine-abuild-${{matrix.arch}}:${{ matrix.dist }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          platforms: ${{ matrix.platform }}
