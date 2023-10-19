@@ -1,15 +1,15 @@
 ARG ARCH=
-ARG DIST=v3.15
+ARG DIST=v3.17
 FROM asymworks/multiarch-alpine:${ARCH}-${DIST}
 
-ARG DIST=v3.15
+ARG DIST=v3.17
 
 ENV RSA_PRIVATE_KEY_NAME packages@asymworks.com-5ff0a833.rsa
 ENV PACKAGER_PRIVKEY /home/builder/${RSA_PRIVATE_KEY_NAME}
 ENV REPODEST /packages
 
 RUN apk --no-cache add alpine-sdk coreutils cmake sudo \
-  && adduser -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
+  && adduser -u 501 -G abuild -g "Alpine Package Builder" -s /bin/ash -D builder \
   && echo "builder ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers \
   && mkdir /packages \
   && chown builder:abuild /packages \
